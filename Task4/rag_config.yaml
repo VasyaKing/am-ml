@@ -1,0 +1,49 @@
+# === Paths ===
+kb_dir: "C:/practicum/am-ml/Task2"
+index_dir: "C:/practicum/am-ml/Task3/faiss_index"
+
+# === Embeddings ===
+embedding_model: "BAAI/bge-m3"
+
+# === Retrieval ===
+top_k: 5
+max_context_chars: 6000
+
+# === LLM (Ollama, OpenAI-compatible) ===
+llm:
+  enabled: true
+  base_url: "http://localhost:11434/v1"
+  api_key: "ollama"
+  model: "gemma3:4b"          # << use what `curl /api/tags` shows
+  temperature: 0.1
+  max_tokens: 512
+  num_samples: 1              # set >1 for simple self-consistency voting
+
+# === Prompting rules ===
+system_prompt: |
+  Ты — корпоративный ассистент QuantumForge.
+  Отвечай строго на основе CONTEXT. Если фактов нет в CONTEXT — так и скажи.
+  Думай шаг за шагом на черновике, но НЕ показывай эти размышления.
+  В ответе выведи только:
+  1) «Ответ: …» — короткий итог в 1–2 предложения.
+  2) «Ключевые доводы:» — 2–4 короткие маркера, сжато и без рассуждений «как я думал».
+  3) «Источники:» — список путей/файлов из CONTEXT.
+
+# Few-shot примеры (подсказывают формат)
+examples:
+  - q: "Как называется столица планеты Ти’лора?"
+    a: |
+      Ответ: Столица планеты Ти’лора — Сайрон.
+      Ключевые доводы:
+      - В CONTEXT упомянуто «столица Ти’лоры — Сайрон».
+      - Других столиц не указано.
+      Источники:
+      - docs/lore/tilora.md
+  - q: "Какая технология используется в HyperRelay?"
+    a: |
+      Ответ: HyperRelay питается от ядра VoidCore.
+      Ключевые доводы:
+      - В CONTEXT приведена прямая фраза об источнике питания — VoidCore.
+      - Нет альтернативных технологий в том же разделе.
+      Источники:
+      - systems/relay/hyperrelay.md
