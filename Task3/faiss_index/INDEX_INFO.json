@@ -2,8 +2,8 @@
   "model_name": "BAAI/bge-m3",
   "model_link": "https://huggingface.co/BAAI/bge-m3",
   "embedding_dim": 1024,
-  "chunks_total": 30,
-  "created_at": "2025-09-22 00:05:53",
+  "chunks_total": 31,
+  "created_at": "2025-09-29 01:14:04",
   "chunking": {
     "unit": "words",
     "chunk_size": 250,

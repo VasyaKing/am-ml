@@ -289,6 +289,16 @@ def main():
         ensure_ollama_model(base_url, model)
 
         messages = build_messages(cfg["system_prompt"], cfg.get("examples", []), args.question, context)
+
+        print("\n--- DEBUG: CONTEXT being sent to LLM ---\n")
+        print(context[:5000])
+        print("\n--- DEBUG: RAW CHUNKS ---")
+        for i, ch in enumerate(raw_chunks):
+            print(f"--- chunk {i} (len={len(ch)}):")
+            print(ch[:800])
+            print()
+        print("\n--- DEBUG: END ---")
+
         try:
             answer = call_llm(base_url, api_key, model, messages, temperature, max_tokens, num_samples)
         except Exception as e:
